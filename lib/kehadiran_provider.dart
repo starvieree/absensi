@@ -15,11 +15,21 @@ class KehadiranProvider with ChangeNotifier {
   void saveKehadiran() {
     final jumlahKehadiran = mahasiswas.where((mhs) => mhs['isPresent']).length;
     final jumlahTidakHadir = mahasiswas.length - jumlahKehadiran;
+    final namaMahasiswaHadir = mahasiswas
+        .where((mhs) => mhs['isPresent'])
+        .map((mhs) => mhs['name'])
+        .toList();
+    final namaMahasiswaTidakHadir = mahasiswas
+        .where((mhs) => !mhs['isPresent'])
+        .map((mhs) => mhs['name'])
+        .toList();
 
     historyKehadiran.insert(0, {
       'tanggal': DateTime.now(),
       'hadir': jumlahKehadiran,
       'tidak hadir': jumlahTidakHadir,
+      'namaHadir': namaMahasiswaHadir,
+      'namaTidakHadir': namaMahasiswaTidakHadir
     });
 
     // Reset kehadiran siswa

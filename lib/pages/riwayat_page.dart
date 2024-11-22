@@ -13,7 +13,7 @@ class RiwayatPage extends StatelessWidget {
       body: kehadiranProvider.historyKehadiran.isEmpty
           ? const Center(
             child: Text(
-              'Silahkan isi absensi mahasiswa terlebih dahulu',
+              'Silahkan isi presensi mahasiswa terlebih dahulu',
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 16,
@@ -29,11 +29,23 @@ class RiwayatPage extends StatelessWidget {
                 final formatTanggal =
                     DateFormat('dd MMM yyyy').format(history['tanggal']);
                 return ListTile(
-                  title: Text(formatTanggal),
-                  subtitle: Column(
+                  title: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
                           'Hadir: ${history['hadir']}, Tidak Hadir: ${history['tidak hadir']}'),
+                      Text(formatTanggal),
+                    ],
+                  ),
+                  subtitle: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Nama mahasiswa yang hadir: ${history['namaHadir']}'
+                      ),
+                      Text(
+                        'Nama mahasiswa yang tidak hadir: ${history['namaTidakHadir']}'
+                      )
                     ],
                   ),
                 );
